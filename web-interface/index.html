@@ -53,10 +53,12 @@
             
             if (!searchTerm) {
                 status.textContent = 'Por favor ingresa un término de búsqueda';
+                status.className = 'text-center font-semibold text-red-600 my-4';
                 return;
             }
 
-            status.textContent = 'Buscando y generando archivos...';
+            status.textContent = 'Buscando y generando archivos... (esto puede tomar varios minutos)';
+            status.className = 'text-center font-semibold text-blue-600 my-4';
             searchBtn.disabled = true;
             verVacantesBtn.classList.add('hidden');
 
@@ -67,16 +69,30 @@
                     body: JSON.stringify({ searchTerm })
                 });
                 
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
                 
                 if (data.success) {
                     status.textContent = data.message;
+                    status.className = 'text-center font-semibold text-green-600 my-4';
                     verVacantesBtn.classList.remove('hidden');
                 } else {
                     status.textContent = data.error || 'Error al buscar vacantes';
+                    status.className = 'text-center font-semibold text-red-600 my-4';
                 }
             } catch (error) {
-                status.textContent = 'Error de conexión. Asegúrate de que el servidor esté ejecutándose.';
+                console.error('Error:', error);
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    status.textContent = 'Error de conexión. Asegúrate de que el servidor esté ejecutándose.';
+                } else if (error.message.includes('timeout')) {
+                    status.textContent = 'La búsqueda está tomando más tiempo del esperado. Intenta de nuevo.';
+                } else {
+                    status.textContent = 'Error de conexión: ' + error.message;
+                }
+                status.className = 'text-center font-semibold text-red-600 my-4';
             } finally {
                 searchBtn.disabled = false;
             }

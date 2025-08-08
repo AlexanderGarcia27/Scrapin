@@ -16,17 +16,40 @@ function askQuestion(query) {
 
 const OCC_URL = 'https://www.occ.com.mx/';
 
-export async function scrapeOCC(searchTerm) {
-  const browser = await puppeteer.launch({
-    headless: "new", // Usa el nuevo modo headless
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-blink-features=AutomationControlled',
-      '--window-size=1400,900'
-    ],
-    defaultViewport: { width: 1400, height: 900 }
-  });
+export async function scrapeOCC(searchTerm, isVercel = false) {
+  let browser;
+  
+  if (isVercel) {
+    // Configuración especial para Vercel
+    browser = await puppeteer.launch({
+      headless: "new",
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--no-zygote',
+        '--single-process',
+        '--disable-gpu',
+        '--disable-blink-features=AutomationControlled',
+        '--window-size=1400,900'
+      ],
+      defaultViewport: { width: 1400, height: 900 }
+    });
+  } else {
+    // Configuración para desarrollo local
+    browser = await puppeteer.launch({
+      headless: "new",
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-blink-features=AutomationControlled',
+        '--window-size=1400,900'
+      ],
+      defaultViewport: { width: 1400, height: 900 }
+    });
+  }
 
   const page = await browser.newPage();
 

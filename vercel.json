@@ -1,28 +1,65 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "web-interface/server.js",
-        "use": "@vercel/node"
-      },
-      {
-        "src": "web-interface/index.html",
-        "use": "@vercel/static"
-      },
-      {
-        "src": "web-interface/vacantes.html",
-        "use": "@vercel/static"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/api/(.*)",
-        "dest": "/web-interface/server.js"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/web-interface/$1"
-      }
-    ]
-  }
+  "version": 2,
+  "env": {
+    "VERCEL": "1",
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "web-interface/server.js": {
+      "maxDuration": 300
+    }
+  },
+  "builds": [
+    {
+      "src": "web-interface/server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "web-interface/index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "web-interface/vacantes.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "web-interface/img/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/web-interface/server.js"
+    },
+    {
+      "src": "/search",
+      "dest": "/web-interface/server.js"
+    },
+    {
+      "src": "/geocode",
+      "dest": "/web-interface/server.js"
+    },
+    {
+      "src": "/resultados.json",
+      "dest": "/web-interface/server.js"
+    },
+    {
+      "src": "/resultados.csv",
+      "dest": "/web-interface/server.js"
+    },
+    {
+      "src": "/resultados.xlsx",
+      "dest": "/web-interface/server.js"
+    },
+    {
+      "src": "/resultados.pdf",
+      "dest": "/web-interface/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/web-interface/$1"
+    }
+  ]
+}
   
