@@ -1,15 +1,24 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "web-interface/index.html",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/web-interface/$1"
-    }
-  ]
-}
+    "version": 2,
+    "builds": [
+      {
+        "src": "web-interface/server.js",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "web-interface/index.html",
+        "use": "@vercel/static"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/web-interface/server.js"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/web-interface/$1"
+      }
+    ]
+  }
+  
