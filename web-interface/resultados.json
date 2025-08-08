@@ -46,12 +46,18 @@
     "sueldo": "$8,500 Mensual",
     "verificada": false,
     "sobreElEmpleo": {
-      "Categoria": "",
-      "Subcategoria": "",
-      "Educación mínima requerida": ""
+      "Categoría": "Educación",
+      "Subcategoría": "Educación especial",
+      "Educación mínima requerida": "Universitario sin titulo",
+      "Categoria": "Educación",
+      "Subcategoria": "Educación especial"
     },
-    "detalles": {},
-    "descripcion": ""
+    "detalles": {
+      "Contratación": "Permanente",
+      "Horario": "Tiempo completo",
+      "Espacio de trabajo": "Presencial"
+    },
+    "descripcion": "REQUISITOS:\n\nNivel de estudios: Licenciatura (concluida o últimos semestres) Psicología educativa, Pedagogía, Educación especial o afines\n\n23 a 32 años\n\nSexo indistinto\n\nEstado civil indistinto\n\n\n\n\nEXPERIENCIA:\n\nDeseable con niños con autismo, trastornos del neurodesarrollo y/o alguna discapacidad\n\n\n\n\nHABILIDADES Y COMPETENCIAS:\n\nProactiva, comunicación asertiva, responsable, puntual.\n\nEmpatía y sensibilidad emocional, paciencia, tolerancia a la frustración, vocación infantil, compromiso y responsabilidad.\n\n\n\n\nHORARIO DE TRABAJO:\n\nDe lunes a viernes\n\n\n\n\nInteresados enviar cv a la dirección de contacto."
   },
   {
     "nombreVacante": "Psicóloga",
