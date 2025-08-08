@@ -10,13 +10,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// Servir el archivo HTML
+// Servir el archivo HTML principal
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -32,15 +31,12 @@ app.post('/search', async (req, res) => {
 
         console.log(`Buscando: ${searchTerm}`);
         
-        // Llamar a la función del scraper
         const results = await scrapeOCC(searchTerm.trim());
         
         if (results.length === 0) {
             return res.json({ success: false, error: 'No se encontraron vacantes' });
         }
 
-        console.log(`Se encontraron ${results.length} vacantes`);
-        
         res.json({ 
             success: true, 
             message: `Se encontraron ${results.length} vacantes y se generaron los archivos`
@@ -62,14 +58,13 @@ app.get('/resultados.json', (req, res) => {
   }
 });
 
-// Endpoint proxy para geocodificación con LocationIQ
+// Endpoint proxy para geocodificación
 app.get('/geocode', async (req, res) => {
     const { q } = req.query;
     if (!q) {
         return res.status(400).json({ error: 'Falta el parámetro q' });
     }
-    // PON AQUÍ TU API KEY DE LOCATIONIQ
-    const apiKey = 'pk.8e189bb0bea1772e515ad047bed32836'; // <-- Reemplaza esto por tu API key real
+    const apiKey = 'pk.8e189bb0bea1772e515ad047bed32836';
     const url = `https://us1.locationiq.com/v1/search.php?key=${apiKey}&q=${encodeURIComponent(q)}&countrycodes=mx&format=json&limit=1&addressdetails=1`;
     try {
         const response = await fetch(url, {
@@ -87,8 +82,5 @@ app.get('/geocode', async (req, res) => {
     }
 });
 
-
-app.listen(PORT, () => {
-    console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
-    console.log(`Abre tu navegador y ve a: http://localhost:${PORT}`);
-}); 
+// En Vercel exportamos la app en vez de escuchar
+export default app;

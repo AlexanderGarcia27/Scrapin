@@ -8,6 +8,10 @@
       {
         "src": "web-interface/index.html",
         "use": "@vercel/static"
+      },
+      {
+        "src": "web-interface/vacantes.html",
+        "use": "@vercel/static"
       }
     ],
     "routes": [
